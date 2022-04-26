@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import "./App.css";
+import { Content } from "./content";
 
 function App() {
-  const [title, set_title] = useState<string>("");
+  const [show, setShow] = useState(false);
 
   return (
     <div className="App">
-      <input value={title} onChange={(e) => set_title(e.target.value)} />
+      <button onClick={() => setShow(!show)}>show</button>
+      {show && <Content />}
     </div>
   );
 }
