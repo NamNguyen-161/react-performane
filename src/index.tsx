@@ -3,24 +3,14 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-
-function emitComment(id: number) {
-  setInterval(() => {
-    window.dispatchEvent(
-      new CustomEvent(`lesson-${id}`, {
-        detail: `noi dung comment lesson ${id}`,
-      })
-    );
-  }, 2000);
-}
-
-emitComment(1);
-emitComment(2);
-emitComment(3);
+import "antd/dist/antd.min.css";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );
