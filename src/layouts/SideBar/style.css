@@ -1,0 +1,16 @@
+.logo {
+    width: 100%;
+    height: 50px;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.switch_mode {
+    position: fixed;
+    bottom: 60px;
+    transition: all 0.2s;
+}
+.avatar {
+    cursor: pointer;
+}
