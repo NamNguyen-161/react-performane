@@ -7,6 +7,7 @@ import {
 } from "@ant-design/icons";
 import Option1 from "../../containers/Option1";
 import Option2 from "../../containers/Option2";
+import WrapperIcon from "./WrapperIconSidebar";
 
 interface ISubMenu {
   label: React.ReactNode;
@@ -44,17 +45,23 @@ export const ItemsMenuSidebar = [
     "1",
     "/",
     <Option1 />,
-    <PieChartOutlined />,
+    <WrapperIcon icon={<PieChartOutlined />} />,
     undefined,
     true
   ),
-  getItem("Option 2", "2", "/2", <Option2 />, <DesktopOutlined />),
+  getItem(
+    "Option 2",
+    "2",
+    "/2",
+    <Option2 />,
+    <WrapperIcon icon={<DesktopOutlined />} />
+  ),
   getItem(
     "User",
     "sub1",
     "/3",
     <Option1 />,
-    <UserOutlined />,
+    <WrapperIcon icon={<UserOutlined />} />,
     [
       getItem("Tom", "3", "/3", <Option1 />),
       getItem("Bill", "4", "/4", <Option2 />),
@@ -67,12 +74,18 @@ export const ItemsMenuSidebar = [
     "sub2",
     "/6",
     <Option2 />,
-    <TeamOutlined />,
+    <WrapperIcon icon={<TeamOutlined />} />,
     [
       getItem("Team 1", "6", "/6", <Option1 />),
       getItem("Team 2", "7", "/7", <Option2 />),
     ],
     false
   ),
-  getItem("Files", "8", "/8", <Option2 />, <FileOutlined />),
+  getItem(
+    "Files",
+    "8",
+    "/8",
+    <Option2 />,
+    <WrapperIcon icon={<FileOutlined />} />
+  ),
 ];
