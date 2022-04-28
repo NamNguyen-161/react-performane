@@ -15,7 +15,7 @@ export interface SideBarProps {}
 
 export default function SideBar(props: SideBarProps) {
   const [collapsed, set_collapsed] = useState<boolean>(false);
-  const [theme, setTheme] = React.useState<"dark" | "light">("dark");
+  const [theme, setTheme] = React.useState<"dark" | "light">("light");
   const handleCollapsed = (value: boolean) => {
     set_collapsed(value);
   };
@@ -60,7 +60,7 @@ export default function SideBar(props: SideBarProps) {
       <Menu theme={theme} defaultSelectedKeys={["1"]} mode="inline">
         {ItemsMenuSidebar.map((item, index) =>
           !item.children ? (
-            <Menu.Item icon={item.icon} key={item.key}>
+            <Menu.Item icon={item.icon} key={item.key} className="item_sidebar">
               <Link to={item.link}>{item.label}</Link>
             </Menu.Item>
           ) : (
@@ -69,6 +69,7 @@ export default function SideBar(props: SideBarProps) {
               key={item.key}
               theme={theme}
               title={item.label}
+              className="item_sidebar"
             >
               {item.children.map((children) => (
                 <Menu.Item key={children?.key}>
