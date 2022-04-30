@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Layout, Menu, Divider, Switch } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import "./style.css";
@@ -7,33 +7,59 @@ import { Typography } from "antd";
 import SubMenu from "antd/lib/menu/SubMenu";
 import { ItemsMenuSidebar } from "./item";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+import {
+  ThemeModeContext,
+  ThemeModeContextType,
+} from "../../context/ThemeMode.Provider";
 
 const { Text } = Typography;
 const { Sider } = Layout;
 
+const Logo = styled.div`
+  width: 100%;
+  height: 50px;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const AvatarCustom = styled(Avatar)`
+  cursor: pointer;
+`;
+
+const SwitchMode = styled.div`
+  position: fixed;
+  bottom: 60px;
+  transition: all 0.2s;
+`;
+
 export interface SideBarProps {}
 
 export default function SideBar(props: SideBarProps) {
+  const { onChangeMode, mode: theme } = useContext(
+    ThemeModeContext
+  ) as ThemeModeContextType;
   const [collapsed, set_collapsed] = useState<boolean>(false);
-  const [theme, setTheme] = React.useState<"dark" | "light">("light");
-  const handleCollapsed = (value: boolean) => {
+  const onCollapsed = (value: boolean) => {
     set_collapsed(value);
   };
 
   const changeTheme = (value: boolean) => {
-    setTheme(value ? "dark" : "light");
+    onChangeMode(value);
   };
+
   return (
     <Sider
       collapsible
       collapsed={collapsed}
-      onCollapse={handleCollapsed}
+      onCollapse={onCollapsed}
       width="250"
       theme={theme}
-      style={{ position: "relative" }}
     >
-      <div className="logo">
-        <Avatar size="large" className="avatar" icon={<UserOutlined />} />
+      <Logo>
+        <AvatarCustom size="large" className="avatar" icon={<UserOutlined />} />
         {!collapsed ? (
           <Text
             type="secondary"
@@ -50,7 +76,7 @@ export default function SideBar(props: SideBarProps) {
         ) : (
           <></>
         )}
-      </div>
+      </Logo>
       <Divider
         style={{
           margin: "14px 0",
@@ -58,39 +84,50 @@ export default function SideBar(props: SideBarProps) {
         }}
       />
       <Menu theme={theme} defaultSelectedKeys={["1"]} mode="inline">
-        {ItemsMenuSidebar.map((item, index) =>
+        {ItemsMenuSidebar.map((item) =>
           !item.children ? (
             <Menu.Item icon={item.icon} key={item.key} className="item_sidebar">
-              <Link to={item.link}>{item.label}</Link>
+              {item.link ? (
+                <Link to={item.link}>{item.label}</Link>
+              ) : (
+                item.label
+              )}
             </Menu.Item>
           ) : (
             <SubMenu
               icon={item.icon}
               key={item.key}
               theme={theme}
-              title={item.label}
+              title={!collapsed ? item.label : ""}
               className="item_sidebar"
             >
               {item.children.map((children) => (
                 <Menu.Item key={children?.key}>
-                  <Link to={children.link}>{children.label}</Link>
+                  {children.link ? (
+                    <Link to={children.link}>{children.label}</Link>
+                  ) : (
+                    children.label
+                  )}
                 </Menu.Item>
               ))}
             </SubMenu>
           )
         )}
       </Menu>
-      <div
-        className="switch_mode"
-        style={{ left: `${collapsed ? "10px" : "95px"}` }}
-      >
+      <SwitchMode style={{ left: `${collapsed ? "10px" : "95px"}` }}>
         <Switch
+          style={{
+            height: 30,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
           checked={theme === "dark"}
           onChange={changeTheme}
           checkedChildren="Dark"
           unCheckedChildren="Light"
         />
-      </div>
+      </SwitchMode>
     </Sider>
   );
 }

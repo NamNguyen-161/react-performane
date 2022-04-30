@@ -1,12 +1,23 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import { Layout } from "antd";
+import {
+  ThemeModeContext,
+  ThemeModeContextType,
+} from "../../context/ThemeMode.Provider";
+
 const { Header } = Layout;
 
 interface HeaderLayoutProps {}
 
 export default function HeaderLayout(props: HeaderLayoutProps) {
+  const { mode: theme } = useContext(ThemeModeContext) as ThemeModeContextType;
   return (
-    <Header className="site-layout-background" style={{ padding: 0 }}>
+    <Header
+      style={{
+        padding: 0,
+        background: `${theme === "light" ? "white" : "#001529"}`,
+      }}
+    >
       Nam
     </Header>
   );
