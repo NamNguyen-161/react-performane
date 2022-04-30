@@ -4,12 +4,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "antd/dist/antd.min.css";
 import { BrowserRouter } from "react-router-dom";
+import ThemeModeProvider from "./context/ThemeMode.Provider";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <ThemeModeProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ThemeModeProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

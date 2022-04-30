@@ -4,7 +4,7 @@ import { Layout } from "antd";
 import HeaderLayout from "../Header";
 import FooterLayout from "../Footer";
 import { Switch, Route } from "react-router-dom";
-import { ItemsMenuSidebar } from "../SideBar/item";
+import { Routes } from "../SideBar/item";
 
 const { Content } = Layout;
 
@@ -16,27 +16,16 @@ export default function MainLayout(props: MainLayoutProps) {
       <SideBar />
       <Layout className="site-layout">
         <HeaderLayout />
-        <Content style={{ margin: "0 16px", background: "white" }}>
+        <Content style={{ margin: "0 16px", overflow: "hidden" }}>
           <Switch>
-            {ItemsMenuSidebar.map((route, index) => {
-              return !route.children ? (
-                <Route
-                  key={index}
-                  path={route.link}
-                  exact={route.exact}
-                  children={route.component}
-                />
-              ) : (
-                route.children.map((routeChild, number) => (
-                  <Route
-                    key={number}
-                    path={routeChild.link}
-                    exact={routeChild.exact}
-                    children={routeChild?.component}
-                  />
-                ))
-              );
-            })}
+            {Routes.map((route, index) => (
+              <Route
+                key={index}
+                path={route.path}
+                exact={route.exact}
+                children={route.component}
+              />
+            ))}
           </Switch>
         </Content>
         <FooterLayout />
