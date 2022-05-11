@@ -5,6 +5,7 @@ import HeaderLayout from "../Header";
 import FooterLayout from "../Footer";
 import { Switch, Route } from "react-router-dom";
 import { Routes } from "../SideBar/item";
+import Finance from "../../containers/finance";
 
 const { Content } = Layout;
 
@@ -13,7 +14,8 @@ export interface MainLayoutProps {}
 export default function MainLayout(props: MainLayoutProps) {
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <SideBar />
+      <Finance />
+      {/* <SideBar />
       <Layout className="site-layout">
         <HeaderLayout />
         <Content style={{ margin: "0 16px", overflow: "hidden" }}>
@@ -29,7 +31,7 @@ export default function MainLayout(props: MainLayoutProps) {
           </Switch>
         </Content>
         <FooterLayout />
-      </Layout>
+      </Layout> */}
     </Layout>
   );
 }
