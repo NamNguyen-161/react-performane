@@ -1,0 +1,22 @@
+@mixin IconBell($color) {
+  font-size: 20px;
+  cursor: pointer;
+  color: $color !important;
+}
+
+.IconBellWhite {
+  @include IconBell($color: white);
+}
+
+.avatar-header {
+  margin-right: 10px !important;
+  cursor: pointer;
+}
+
+.switch-mode {
+  height: 30;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px !important;
+}
