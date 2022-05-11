@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col } from "antd";
+import { Row, Col, DatePicker } from "antd";
 import BoxAdmin from "./Box";
 import LineChart from "./Line";
 
@@ -29,7 +29,9 @@ export default function Option1(props: Option1Props) {
         <Col span={18}>
           <LineChart data={data} />
         </Col>
-        <Col span={6}>Nguyen</Col>
+        <Col span={6}>
+          <DatePicker />
+        </Col>
       </Row>
     </div>
   );

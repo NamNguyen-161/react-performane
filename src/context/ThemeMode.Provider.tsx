@@ -1,7 +1,8 @@
 import React, { createContext, useState } from "react";
+import { EModeTheme } from "../styles";
 
 export interface ThemeModeContextType {
-  mode: "dark" | "light";
+  mode: EModeTheme;
   onChangeMode: (mode: boolean) => void;
 }
 
@@ -13,10 +14,10 @@ export const ThemeModeContext =
   createContext<ThemeModeContextType | null>(null);
 
 const ThemeModeProvider: React.FC<Props> = ({ children }) => {
-  const [mode, set_mode] = useState<"dark" | "light">("light");
+  const [mode, set_mode] = useState<EModeTheme>(EModeTheme["light"]);
 
   const onChangeMode = (mode: boolean) => {
-    set_mode(mode ? "dark" : "light");
+    set_mode(mode ? EModeTheme["dark"] : EModeTheme["light"]);
   };
 
   return (

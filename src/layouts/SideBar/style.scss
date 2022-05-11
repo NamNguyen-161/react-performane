@@ -1,0 +1,33 @@
+.ant-menu.ant-menu-inline-collapsed > .ant-menu-item {
+  padding: 0 calc(40% - 8px) !important;
+}
+.ant-menu.ant-menu-inline-collapsed
+  > .ant-menu-submenu
+  > .ant-menu-submenu-title {
+  padding: 0 calc(40% - 8px) !important;
+}
+
+.ant-menu-inline .ant-menu-item:not(:last-child) {
+  margin-bottom: 12px;
+}
+.ant-menu-inline.ant-menu-root .ant-menu-item {
+  min-height: 60px;
+}
+.ant-menu-inline .ant-menu-submenu {
+  min-height: 60px;
+}
+.ant-menu-inline.ant-menu-root .ant-menu-submenu-title {
+  min-height: 60px;
+}
+.ant-menu.ant-menu-inline-collapsed > .ant-menu-item {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+}
+.ant-menu.ant-menu-inline-collapsed
+  > .ant-menu-submenu
+  > .ant-menu-submenu-title {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+}
