@@ -77,8 +77,9 @@ export default function Finance(props: IFinanceProps) {
       symbol: target,
       tp: values.takeProfit,
       sl: values.stopLoss,
+      to: values.email,
     };
-    await fetch("http://localhost:8080/target-price", {
+    await fetch("http://localhost:8080/finance-reminder-application", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -212,6 +213,20 @@ export default function Finance(props: IFinanceProps) {
               rules={[{ required: true }]}
             >
               <InputNumber style={{ marginLeft: "80px" }} />
+            </Form.Item>
+
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  type: "email",
+                  message: "Input is not valid E-mail!",
+                },
+              ]}
+            >
+              <Input style={{ marginLeft: "80px" }} />
             </Form.Item>
 
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
