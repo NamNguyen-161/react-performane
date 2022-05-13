@@ -19,9 +19,11 @@ export default function Finance(props: IFinanceProps) {
   const [form] = Form.useForm();
 
   const [symbol, set_symbol] = useState<string>("");
-  const [loading, set_loading] = useState<{ symbol: boolean; detail: boolean }>(
-    { symbol: false, detail: false }
-  );
+  const [loading, set_loading] = useState<{
+    symbol: boolean;
+    detail: boolean;
+    submit: boolean;
+  }>({ symbol: false, detail: false, submit: false });
   const [target, setTarget] = useState<string>("");
   const [dataSymbol, set_dataSymbol] = useState<any[]>([]);
   const [detailSymbol, set_detailSymbol] = useState<any[]>();
@@ -52,11 +54,7 @@ export default function Finance(props: IFinanceProps) {
       await fetch(`http://localhost:8080/symbol/${value}`)
         .then((response) => response.json())
         .then((data) =>
-          set_detailSymbol([
-            Object.values(data["Time Series (1min)"])[
-              Object.values(data["Time Series (1min)"]).length - 1
-            ],
-          ])
+          set_detailSymbol([Object.values(data["Time Series (1min)"])[1]])
         )
         .catch((error) => {
           set_detailSymbol([]);
@@ -79,6 +77,7 @@ export default function Finance(props: IFinanceProps) {
       sl: values.stopLoss,
       to: values.email,
     };
+    set_loading({ ...loading, submit: true });
     await fetch("http://localhost:8080/finance-reminder-application", {
       method: "POST",
       headers: {
@@ -88,10 +87,13 @@ export default function Finance(props: IFinanceProps) {
     })
       .then((response) => response.json())
       .then((data) => {
+        set_loading({ ...loading, submit: false });
+
         openNotification("success", "");
         console.log("Success:", data);
       })
       .catch((error) => {
+        set_loading({ ...loading, submit: false });
         openNotification("error", error.message);
       });
   };
@@ -230,7 +232,7 @@ export default function Finance(props: IFinanceProps) {
             </Form.Item>
 
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-              <Button type="primary" htmlType="submit">
+              <Button loading={loading.submit} type="primary" htmlType="submit">
                 Submit
               </Button>
             </Form.Item>
