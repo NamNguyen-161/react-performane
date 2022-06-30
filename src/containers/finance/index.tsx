@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Input,
@@ -7,7 +7,11 @@ import {
   Form,
   InputNumber,
   notification,
+  Checkbox,
 } from "antd";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:8080");
 
 type typeNotification = "success" | "error";
 
@@ -27,6 +31,15 @@ export default function Finance(props: IFinanceProps) {
   const [target, setTarget] = useState<string>("");
   const [dataSymbol, set_dataSymbol] = useState<any[]>([]);
   const [detailSymbol, set_detailSymbol] = useState<any[]>();
+  const [service, set_service] = useState();
+
+  //socket
+  useEffect(() => {
+    socket.on("service", (data) => {
+      set_service(data);
+    });
+  });
+
   const onSubmitSymbol = async () => {
     form.resetFields();
     if (symbol !== "") {
@@ -238,6 +251,12 @@ export default function Finance(props: IFinanceProps) {
             </Form.Item>
           </Form>
         )}
+      </div>
+      <div style={{ textAlign: "center", marginTop: "30px" }}>
+        <Checkbox checked={service === "email" ? true : false}>Email</Checkbox>
+        <Checkbox checked={service === "telegram" ? true : false}>
+          Telegram
+        </Checkbox>
       </div>
     </div>
   );
