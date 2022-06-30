@@ -8,8 +8,10 @@ import {
   InputNumber,
   notification,
   Checkbox,
+  Select,
 } from "antd";
 import { io } from "socket.io-client";
+const { Option } = Select;
 
 const socket = io("http://localhost:8080");
 
@@ -89,6 +91,7 @@ export default function Finance(props: IFinanceProps) {
       tp: values.takeProfit,
       sl: values.stopLoss,
       to: values.email,
+      type: values.type,
     };
     set_loading({ ...loading, submit: true });
     await fetch("http://localhost:8080/finance-reminder-application", {
@@ -230,14 +233,19 @@ export default function Finance(props: IFinanceProps) {
               <InputNumber style={{ marginLeft: "80px" }} />
             </Form.Item>
 
+            <Form.Item label="Dịch vụ" name="type" initialValue="email">
+              <Select style={{ marginLeft: "80px" }}>
+                <Option value="email">Email</Option>
+                <Option value="telegram">Telegram</Option>
+              </Select>
+            </Form.Item>
+
             <Form.Item
-              label="Email"
+              label="Email or Chat Id"
               name="email"
               rules={[
                 {
                   required: true,
-                  type: "email",
-                  message: "Input is not valid E-mail!",
                 },
               ]}
             >
